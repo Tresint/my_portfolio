@@ -1,0 +1,133 @@
+1. db설계
+ //shop_member
+
+create table `shop_member`(
+  `idx` int(11) not null auto_increment,
+  `id` varchar(50) not null , 
+  `pw` varchar(50) not null,
+  PRIMARY KEY(`idx`)
+);
+//관리자 계정
+insert into shop_member(idx,id,pw) values(1,'admin','admin');
+
+
+//shop_product
+
+create table `shop_product`(
+   `p_idx` int(11) not null auto_increment,
+   `p_img` varchar(1024) not null,
+   `p_name` varchar(50) not null,
+   `p_content` varchar(300) not null,
+   `p_price` int(11) not null,
+    PRIMARY KEY(`p_idx`)
+);
+
+// shop_myinform
+
+create table `shop_favorites`(
+ `p_idx` int(11) not null,
+ `id`  varchar(50) not null,
+ PRIMARY KEY(`p_idx`)
+);
+
+create table `shop_basket`(
+ `p_idx` int(11) not null,
+ `id`  varchar(50) not null,
+ PRIMARY KEY(`p_idx`)
+);
+
+// shop_ask -- 코드를 기준으로 이녀석을 찾으면됨
+
+create table `shop_ask`(
+  `idx` int(11) not null auto_increment,
+  `id` varchar(50) not null , 
+  `title` varchar(300) not null,
+  `content` varchar(500) not null,
+  `sending_date` datetime not null,
+  PRIMARY KEY(`idx`)
+);
+
+//2,3
+
+//shop_answer -- 식별자인 코드를 가지고있음
+create table `shop_answer`(
+ `idx` int(11) not null auto_increment,
+  `id` varchar(50) not null , 
+  `title` varchar(300) not null,
+  `content` varchar(500) not null,
+  `sending_date` datetime not null,
+  PRIMARY KEY(`idx`)
+);
+
+//shop_board
+
+ create table `shop_board`(
+	`idx` int(11) not null auto_increment,
+	`title` varchar(100) not null,
+	`content` varchar(500) not null,
+	`writer` varchar(50) not null,
+	`created` datetime not null,
+	PRIMARY KEY(`idx`)
+);
+
+//shop_comment
+
+create table `shop_comment`(
+   `idx` int(11) not null auto_increment,
+   `content` varchar(300) not null,
+   `writer` varchar(50) not null,
+   `b_idx` int(11) not null,
+   PRIMARY KEY(`idx`)
+);
+
+//shop_bcomment
+create table `shop_bcomment`(
+   `idx` int(11) not null auto_increment,
+   `id` varchar(50) not null,
+   `p_idx` int(11) not null,
+   `bought` varchar(50) not null,
+   PRIMARY KEY(`idx`)
+);
+
+//shop_bougthcomment
+create table `shop_buy_comment`(
+   `idx` int(11) not null auto_increment,
+   `content` varchar(300) not null,
+   `writer` varchar(50) not null,
+   `p_idx` int(11) not null,
+   PRIMARY KEY(`idx`)
+);
+
+//상품번호와 아이디와 산여부가 모두 존재하는 데이터가 있을 시에 후기에 접근가능
+
+//newpw,change_pw
+
+//db변경
+ - 백업페이지
+alter table shop_product add column deleted varchar(30);
+update shop_product set deleted = 'no';
+ - 카테고리
+alter table shop_product add column category varchar(50);
+update shop_product set category = 'appliances';
+ - 메인노출여부
+alter table shop_product add column main varchar(30);
+update shop_product set main = 'no';
+ - 관리자 고객 문의내역 구분
+alter table shop_ask add column deleted varchar(30);
+update shop_ask set deleted = 'no';
+ - 답변 여부 
+alter table shop_ask add column answered varchar(30);
+update shop_ask set answered = 'yes';
+ - 질문을 찾기 위한 고유 코드 컬럼 추가 
+alter table shop_answer add column code int(11);
+update shop_answer set code = 1;
+ - 이메일 컬럼추가 
+alter table shop_member add column email varchar(100);
+ - 암호화를 위한 컬럼추가 및 변경
+alter table shop_member add column salt varchar(300);
+alter table shop_member modify column pw varchar(300):
+
+
+
+
+

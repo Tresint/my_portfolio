@@ -1,0 +1,8 @@
+
+    .panel-footer {
+        padding: 0 30px 15px;
+        background-color: transparent;
+        border-top: 1px solid transparent;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
